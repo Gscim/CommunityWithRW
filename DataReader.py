@@ -31,7 +31,10 @@ class DataReader:
             else:
                 return self.formulateGraphFile()
 
-    def readFormulatedGraph(self, form_file = self.file_path) -> list:
+    def readFormulatedGraph(self, form_file=None) -> list:
+        if form_file == None:
+            form_file = self.file_path
+            
         if not os.path.exists(form_file):
             print("no formulated graph file exists, please check file path...")
         
