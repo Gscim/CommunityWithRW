@@ -6,6 +6,7 @@ walk input file of type {{node1:adjnode1, adjnode2,...},...}
 from random import choice
 import math
 import os
+import DataReader
 
 class RandomWalks:
     def __init__(self, walk_input, walk_output, walk_length:int, num_walks:int):
@@ -37,5 +38,6 @@ if __name__ == "__main__":
     a = [[1, 2 , 3, 4, 5], [0, 2, 3, 4, 5], [0, 1, 3, 4, 5], [0, 1, 2, 4, 5], [0, 1, 2, 3, 5], [0, 1, 2, 3, 4]]
     rw = RandomWalks(a, "trialout.bin", 3, 1)
     rw.generate_rw([0, 1, 2, 3, 4, 5])
+    
 
 
