@@ -47,6 +47,11 @@ class DataReader:
         gfile.close()
         return graphList
     
+    '''
+    to make formulated graph files
+    origin graph file may not good for computing
+    to be continued...
+    '''
     def formulateGraphFile(self) -> list:
         if not os.path.exists(self.file_path):
             print("no graph file exists, please check file path...")
