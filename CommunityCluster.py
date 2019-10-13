@@ -1,7 +1,8 @@
 from RandomWalks import RandomWalks
 from DataReader import DataReader
 
-
+class CommunityCluster(object):
+    
 
 
 

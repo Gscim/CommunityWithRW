@@ -8,7 +8,7 @@ import math
 import os
 import DataReader
 
-class RandomWalks:
+class RandomWalks(object):
     def __init__(self, walk_input, walk_output, walk_length:int, num_walks:int):
         self.walk_length = walk_length
         self.walk_input = walk_input
