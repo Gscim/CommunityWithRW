@@ -66,5 +66,5 @@ class DataReader:
 
    
 if __name__ == "__main__":
-    dr = DataReader("trialout.bin")
+    dr = DataReader("trialout.rw")
     print(dr.readRWFile())
