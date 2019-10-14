@@ -9,9 +9,10 @@ import os
 import DataReader
 
 class RandomWalks(object):
-    def __init__(self, walk_input, walk_output, walk_length:int, num_walks:int, walk_mode=None):
+    def __init__(self, graph_on:Graph, walk_output, walk_length:int, num_walks:int, walk_mode=None):
         self.walk_length = walk_length
-        self.walk_input = walk_input
+        self.graph_on = graph_on
+        self.walk_input = graph_on.graph
         self.walk_output = walk_output
         self.num_walks = num_walks
 
@@ -66,9 +67,16 @@ class RandomWalks(object):
         wkout.close()
 
 if __name__ == "__main__":
-    a = [[1, 2 , 3, 4, 5], [0, 2, 3, 4, 5], [0, 1, 3, 4, 5], [0, 1, 2, 4, 5], [0, 1, 2, 3, 5], [0, 1, 2, 3, 4]]
+    a = [[1, 2, 3, 4, 5], [0, 2, 3, 4, 5], [0, 1, 3, 4, 5], [0, 1, 2, 4, 5], [0, 1, 2, 3, 5], [0, 1, 2, 3, 4]]
+    gfile = open("./testgraph.bin", 'w')
+
+    for node in a:
+        gfile.write(' '.join(map(lambda x: str(x), node)) + '\n')
+
+    gfile.close()
     rw = RandomWalks(a, "trialout.rw", 3, 1)
     rw.generate_rw([0, 1, 2, 3, 4, 5])
+
 
 
 

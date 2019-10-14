@@ -1,9 +1,10 @@
 from RandomWalks import RandomWalks
 from DataReader import DataReader
+from Graph import Graph
 import os
 
 class CommunityCluster(object):
-    def __init__(self, graph_file: list):
+    def __init__(self, graph_file: Graph):
         self.community_num = None
         self.community_cluster = None
         self.intern_edges = None
@@ -36,17 +37,18 @@ class CommunityCluster(object):
 
     # main algorithm for community cluster program
     def cluster_on_graph(self, rwfile) -> list:
-        reClusters = []
-
         if not os.path.exists(rwfile):
             print("no random walk file provided, exit...")
             exit(1)
 
+        dreader = DataReader(rwfile)
+        rwList = dreader.readRWFile();
+
+        Clusters = [[x] for x in range(self.graph_file.num_nodes)]
 
 
-
-        self.community_cluster = reClusters
-        return reClusters
+        self.community_cluster = Clusters
+        return Clusters
 
 
 

@@ -106,3 +106,4 @@ venv.bak/
 # output files
 *.bin
 *.rw
+*.formu
