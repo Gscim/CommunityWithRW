@@ -6,10 +6,11 @@ walk input file of type {{node1:adjnode1, adjnode2,...},...}
 from random import choice
 import math
 import os
-import DataReader
+from DataReader import DataReader
+from Graph import Graph
 
 class RandomWalks(object):
-    def __init__(self, graph_on:Graph, walk_output, walk_length:int, num_walks:int, walk_mode=None):
+    def __init__(self, graph_on: Graph, walk_output, walk_length:int, num_walks:int, walk_mode=None):
         self.walk_length = walk_length
         self.graph_on = graph_on
         self.walk_input = graph_on.graph

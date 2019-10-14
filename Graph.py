@@ -9,6 +9,11 @@ class Graph(object):
         self.graph = dr.readGraphFile()
         self.num_nodes = len(self.graph)
 
+    def __init__(self):
+        self.graph_file_path = None
+        self.graph = None
+        self.num_nodes = None
+
 
 
 if __name__ == "__main__":

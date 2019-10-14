@@ -57,7 +57,6 @@ class CommunityCluster(object):
     def compute_edges(self, single_community:list) -> tuple:
         cnt_intern = 0
         cnt_bound = 0
-
         for node in single_community:
             for edgeto in graph_file[node]:
                 if edgeto in single_community:
@@ -72,15 +71,36 @@ class CommunityCluster(object):
     To make random graph with communities
     randomly organize clusters and link them with limited edges
     '''
-    def makeRandomCluster(self, node_num: int, edge_num: int) -> list:
+    def linkRandomClusterEdges(self, nodes: list, edge_num: int) -> list:
+
         return []
         
     def genGraphWithCommunities(self, num_clusters: int, num_cluster_nodes: list, intern_edges: list) -> list:
+        graphWithComs = Graph()
+        graphfile = [[] for x in range(sum(num_cluster_nodes))]
+        clusters = []
+        stnode = 0
+        for n_nodes in num_cluster_nodes:
+            clusters.append(list(range(stnode, stnode + n_nodes)))
+            stnode += n_nodes
+        # print(clusters)
+        
+
+
+
+
+
         return []
 
 
 
 if __name__ == "__main__":
     a = [[1, 2 , 3, 4, 5], [0, 2, 3, 4, 5], [0, 1, 3, 4, 5], [0, 1, 2, 4, 5], [0, 1, 2, 3, 5], [0, 1, 2, 3, 4]]
-    rw = RandomWalks(a, "trialout.rw", 3, 1)
+    gf = Graph()
+    gf.graph = a
+    rw = RandomWalks(gf, "trialout.rw", 3, 1)
     rw.generate_rw([0, 1, 2, 3, 4, 5])
+
+    ccluster = CommunityCluster(3, [1], [1], [1], [2])
+    ccluster.genGraphWithCommunities(3, [3, 4 ,5], [2, 3 ,4])
+
