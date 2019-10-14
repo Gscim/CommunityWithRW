@@ -8,6 +8,7 @@ class DataReader(object):
     def readRWFile(self) -> list:
         if not os.path.exists(self.file_path):
             print("no random walk file exists, please check file path...")
+            exit(1)
 
         rwfile = open(self.file_path, 'r')
         rwList = []
@@ -21,6 +22,7 @@ class DataReader(object):
     def readGraphFile(self):
         if not os.path.exists(self.file_path):
             print("no random graph file exists, please check file path...")
+            exit(1)
         if self.file_path.endswith('.formu'):
             return self.readFormulatedGraph()
         else:
@@ -37,6 +39,7 @@ class DataReader(object):
             
         if not os.path.exists(form_file):
             print("no formulated graph file exists, please check file path...")
+            exit(1)
         
         graphList = []
         gfile = open(form_file, 'r')
@@ -55,12 +58,18 @@ class DataReader(object):
     def formulateGraphFile(self) -> list:
         if not os.path.exists(self.file_path):
             print("no graph file exists, please check file path...")
+            exit(1)
         
         portion = os.path.splitext(self.file_path)
         formu_path = portion[0] + '.formu'
         graph_file = open(self.file_path, 'r')
         formu_file = open(formu_path, 'w')
         reList = []
+
+
+
+
+        
 
 
 

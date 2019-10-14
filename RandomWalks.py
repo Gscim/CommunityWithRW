@@ -9,13 +9,20 @@ import os
 import DataReader
 
 class RandomWalks(object):
-    def __init__(self, walk_input, walk_output, walk_length:int, num_walks:int):
+    def __init__(self, walk_input, walk_output, walk_length:int, num_walks:int, walk_mode=None):
         self.walk_length = walk_length
         self.walk_input = walk_input
         self.walk_output = walk_output
         self.num_walks = num_walks
 
-    def walk_forward(self, start_point:int) -> list:
+        # walk mode 0 for ordinary random walk, 1 for second order random walk
+        if (walk_mode == None):
+            self.walk_mode = 0
+        else:
+            self.walk_mode = 1
+
+    # ordinary random walk forward
+    def walk_forward_0(self, start_point:int) -> list:
         current_node = start_point
         walkOneRun = [str(start_point)]
         for step in range(self.walk_length):
@@ -26,12 +33,36 @@ class RandomWalks(object):
             current_node = next_step
         return walkOneRun
     
+    # second order random walk forward
+    def walk_forward_1(self, start_point:int) -> list:
+        prev_node = start_point
+        current_node = choice(self.walk_input[prev_node])
+        walkOneRun = [str(prev_node), str(current_node)]
+        for step in range(1, self.walk_length):
+            next_step = self.secOrderNodeDecision(prev_node, current_node)
+            walkOneRun.append(str(next_step))
+            prev_node = current_node
+            current_node = next_step
+
+        return walkOneRun
+
+    def secOrderNodeDecision(self, prev_node, current_node):
+        
+
+
+        return 0;
+
     def generate_rw(self, start_list : list):
         wkout = open(self.walk_output, mode='w')
-        for start_point in start_list:
-            for nwk in range(self.num_walks):
-                wkout.write(' '.join(self.walk_forward(start_point)) + '\n')
-        
+        if self.walk_mode == 0:  
+            for start_point in start_list:
+                for nwk in range(self.num_walks):
+                    wkout.write(' '.join(self.walk_forward_0(start_point)) + '\n')
+        else:
+            for start_point in start_list:
+                for nwk in range(self.num_walks):
+                    wkout.write(' '.join(self.walk_forward_1(start_point)) + '\n')
+
         wkout.close()
 
 if __name__ == "__main__":

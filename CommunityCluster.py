@@ -1,29 +1,54 @@
 from RandomWalks import RandomWalks
 from DataReader import DataReader
+import os
 
 class CommunityCluster(object):
     def __init__(self, graph_file: list):
         self.community_num = None
         self.community_cluster = None
         self.intern_edges = None
+        self.bound_edges = None
         self.modularity_Q = None
         self.graph_file = graph_file
     
     def __init__(self, community_num: int, community_cluster: list, 
-            intern_edges: list, modularity_Q: float, graph_file:list):
+            intern_edges: list, bound_edges: list, modularity_Q: float):
         self.community_num = community_num
         self.community_cluster = community_cluster
         self.intern_edges = intern_edges
+        self.bound_edges = bound_edges
         self.modularity_Q = modularity_Q
-        self.graph_file = graph_file
+        self.graph_file = None
     
     # return value of nodularity Q
     def compute_Q(self, my_community_clusters:list):
+        if self.graph_file == None:
+            print("cannot compute Q of graph, no graph file provided...")
+            exit(1);
+
         Q = 0.0
         for community in my_community_clusters:
             edge_info = self.compute_edges(community)
             Q = Q + (edge_info[0] - edge_info[1] ** 2)
+
+        self.modularity_Q = Q
         return Q
+
+    # main algorithm for community cluster program
+    def cluster_on_graph(self, rwfile) -> list:
+        reClusters = []
+
+        if not os.path.exists(rwfile):
+            print("no random walk file provided, exit...")
+            exit(1)
+
+
+
+
+        self.community_cluster = reClusters
+        return reClusters
+
+
 
     # edges include internal edges and bounding edges
     # return (internal edges, bounding edges)
@@ -45,10 +70,10 @@ class CommunityCluster(object):
     To make random graph with communities
     randomly organize clusters and link them with limited edges
     '''
-    def makeRandomCluster(self, node_num : int) -> list:
+    def makeRandomCluster(self, node_num: int, edge_num: int) -> list:
         return []
         
-    def genGraphWithCommunities(self, num_clusters : int, num_cluster_nodes : list) -> list:
+    def genGraphWithCommunities(self, num_clusters: int, num_cluster_nodes: list, intern_edges: list) -> list:
         return []
 
 
