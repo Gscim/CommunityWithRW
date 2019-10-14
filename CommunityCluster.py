@@ -71,26 +71,32 @@ class CommunityCluster(object):
     To make random graph with communities
     randomly organize clusters and link them with limited edges
     '''
-    def linkRandomClusterEdges(self, nodes: list, edge_num: int) -> list:
-
-        return []
+    def linkRandomClusterEdges(self, nodes: list, edge_num: int) -> bool:
+        
+        return true
         
     def genGraphWithCommunities(self, num_clusters: int, num_cluster_nodes: list, intern_edges: list) -> list:
         graphWithComs = Graph()
         graphfile = [[] for x in range(sum(num_cluster_nodes))]
+        graphWithComs.graph = graphfile
+        self.graph_file = graphWithComs
+
         clusters = []
         stnode = 0
         for n_nodes in num_cluster_nodes:
             clusters.append(list(range(stnode, stnode + n_nodes)))
             stnode += n_nodes
         # print(clusters)
+
+        for (cluster, in_edges) in zip(clusters, intern_edges):
+            self.linkRandomClusterEdges(clusters, in_edges)
+
         
 
 
 
 
-
-        return []
+        return graphWithComs
 
 
 
