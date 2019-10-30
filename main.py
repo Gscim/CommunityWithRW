@@ -21,6 +21,8 @@ else:
     comm_edges_list = np.array([], dtype=np.int)
     graph_file.make_graph_with_community(comm_nodes_list, comm_edges_list, modularity_Q)
 
+cluster_class = CommunityCluster(graph_file, std_Q=modularity_Q)
+
 
 
 

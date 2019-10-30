@@ -3,20 +3,26 @@ from DataReader import DataReader
 from Graph import Graph
 import os
 
+'''
+    Parameters:
+        graph file: graph file 
+        community_record: list of communities recorded with nodes
+        std_Q: actual Q with real communities over graph file
+'''
+
 class CommunityCluster(object):
-    def __init__(self, graph_file, community_record, std_Q):
+    def __init__(self, graph_file, community_record=None, std_Q=None):
         self.graph_file = graph_file
         self.community_record = community_record
         self.std_Q = std_Q
-        self.part_Q
+        self.part_Q = None
         self.partition = None
 
     # compute modularity Q with current partition
-    def compute_Q(self, my_community_clusters):
+    def compute_Q(self):
         # init partition, each partition is a single node
         if self.partition == None:
-            
-
+            self.partition = [[x] for x in range(self.graph_file.num_nodes)]
 
         Q = 0.0
         for community in self.partition:

@@ -18,12 +18,14 @@ class Graph(object):
         self.graph = dr.readGraphFile()
         self.num_nodes = len(self.graph)
         self.community_record = None
+        self.std_Q = None
 
     def __init__(self):
         self.graph_file_path = None
         self.graph = None
         self.num_nodes = None
-
+        self.community_record = None
+        self.std_Q = None
 
     '''
     To make random graph with communities
