@@ -4,35 +4,26 @@ from Graph import Graph
 import os
 
 class CommunityCluster(object):
-    def __init__(self, graph_file):
-        self.community_num = None
-        self.community_cluster = None
-        self.intern_edges = None
-        self.bound_edges = None
-        self.modularity_Q = None
+    def __init__(self, graph_file, community_record, std_Q):
         self.graph_file = graph_file
-    
-    def __init__(self, community_num, community_cluster, 
-            intern_edges, bound_edges, modularity_Q):
-        self.community_num = community_num
-        self.community_cluster = community_cluster
-        self.intern_edges = intern_edges
-        self.bound_edges = bound_edges
-        self.modularity_Q = modularity_Q
-        self.graph_file = None
-    
-    # return value of nodularity Q
+        self.community_record = community_record
+        self.std_Q = std_Q
+        self.part_Q
+        self.partition = None
+
+    # compute modularity Q with current partition
     def compute_Q(self, my_community_clusters):
-        if self.graph_file == None:
-            print("cannot compute Q of graph, no graph file provided...")
-            exit(1);
+        # init partition, each partition is a single node
+        if self.partition == None:
+            
+
 
         Q = 0.0
-        for community in my_community_clusters:
+        for community in self.partition:
             edge_info = self.compute_edges(community)
             Q = Q + (edge_info[0] - edge_info[1] ** 2)
 
-        self.modularity_Q = Q
+        self.part_Q = Q
         return Q
 
     # main algorithm for community cluster program

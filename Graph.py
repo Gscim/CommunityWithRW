@@ -1,3 +1,10 @@
+'''
+    organized graph file better with a community tag.
+    we can get the real comminity information given a graph file
+    self made graph can be stored in npy file with 2 array: graph data and community record
+
+
+'''
 import os
 import numpy as np 
 import random
@@ -10,6 +17,7 @@ class Graph(object):
         dr = DataReader(graph_file_path)
         self.graph = dr.readGraphFile()
         self.num_nodes = len(self.graph)
+        self.community_record = None
 
     def __init__(self):
         self.graph_file_path = None
@@ -29,7 +37,7 @@ class Graph(object):
         graph file with communities
 
     '''
-    def make_graph_with_community(self, comm_nodes_list, comm_edges_list):
+    def make_graph_with_community(self, comm_nodes_list, comm_edges_list, modularity_Q):
         startid = 0
         comm_size = 0
         endid = 0
