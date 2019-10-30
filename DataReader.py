@@ -1,22 +1,26 @@
 import os
+import numpy as np 
 '''
 '''
 class DataReader(object):
     def __init__(self, file_path: str):
         self.file_path = file_path
 
-    def readRWFile(self) -> list:
+    def readRWFile(self):
         if not os.path.exists(self.file_path):
             print("no random walk file exists, please check file path...")
             exit(1)
-
-        rwfile = open(self.file_path, 'r')
-        rwList = []
-        for line in rwfile:
-            linetrip = line.strip().split(" ")
-            rwList.append(list(map(eval, linetrip)))
-        
-        rwfile.close()
+        try:
+            rwfile = open(self.file_path, 'r')
+            rwList = []
+            for line in rwfile:
+                linetrip = line.strip().split(" ")
+                rwList.append(list(map(eval, linetrip)))
+        except IOError:
+            print('fail to open rw file.')
+        else:
+            print('rw file read.')
+            rwfile.close()
         return rwList
 
     def readGraphFile(self):
@@ -33,7 +37,7 @@ class DataReader(object):
             else:
                 return self.formulateGraphFile()
 
-    def readFormulatedGraph(self, form_file=None) -> list:
+    def readFormulatedGraph(self, form_file=None):
         if form_file == None:
             form_file = self.file_path
             
@@ -55,7 +59,7 @@ class DataReader(object):
     origin graph file may not good for computing
     to be continued...
     '''
-    def formulateGraphFile(self) -> list:
+    def formulateGraphFile(self):
         if not os.path.exists(self.file_path):
             print("no graph file exists, please check file path...")
             exit(1)

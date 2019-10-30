@@ -20,8 +20,16 @@ class Graph(object):
     '''
     To make random graph with communities
     randomly organize clusters and link them with limited edges
+
+    Parameters:
+        comm_nodes_list: number of nodes of each community
+        comm_edges_list: number of edges inside each community
+
+    Returns:
+        graph file with communities
+
     '''
-    def make_graph_with_community(self, comm_nodes_list: list, comm_edges_list: list) -> bool:
+    def make_graph_with_community(self, comm_nodes_list, comm_edges_list):
         startid = 0
         comm_size = 0
         endid = 0

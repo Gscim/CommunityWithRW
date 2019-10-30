@@ -4,7 +4,7 @@ from Graph import Graph
 import os
 
 class CommunityCluster(object):
-    def __init__(self, graph_file: Graph):
+    def __init__(self, graph_file):
         self.community_num = None
         self.community_cluster = None
         self.intern_edges = None
@@ -12,8 +12,8 @@ class CommunityCluster(object):
         self.modularity_Q = None
         self.graph_file = graph_file
     
-    def __init__(self, community_num: int, community_cluster: list, 
-            intern_edges: list, bound_edges: list, modularity_Q: float):
+    def __init__(self, community_num, community_cluster, 
+            intern_edges, bound_edges, modularity_Q):
         self.community_num = community_num
         self.community_cluster = community_cluster
         self.intern_edges = intern_edges
@@ -22,7 +22,7 @@ class CommunityCluster(object):
         self.graph_file = None
     
     # return value of nodularity Q
-    def compute_Q(self, my_community_clusters:list):
+    def compute_Q(self, my_community_clusters):
         if self.graph_file == None:
             print("cannot compute Q of graph, no graph file provided...")
             exit(1);
@@ -36,7 +36,7 @@ class CommunityCluster(object):
         return Q
 
     # main algorithm for community cluster program
-    def cluster_on_graph(self, rwfile) -> list:
+    def cluster_on_graph(self, rwfile):
         if not os.path.exists(rwfile):
             print("no random walk file provided, exit...")
             exit(1)
@@ -54,7 +54,7 @@ class CommunityCluster(object):
 
     # edges include internal edges and bounding edges
     # return (internal edges, bounding edges)
-    def compute_edges(self, single_community:list) -> tuple:
+    def compute_edges(self, single_community):
         cnt_intern = 0
         cnt_bound = 0
         for node in single_community:
@@ -65,11 +65,6 @@ class CommunityCluster(object):
                     cnt_bound += 1
 
         return (cnt_intern / 2, cnt_bound)
-
-
-    def calc_Pi(self, start_node: int, walk_t: int, num_starts: int) -> list:
-        
-
 
 
 if __name__ == "__main__":
