@@ -133,6 +133,7 @@ class RandomWalks(object):
 
         return Pi
 
+    
 
 if __name__ == "__main__":
     a = np.array([[1, 2, 3, 4, 5], [0, 2, 3, 4, 5], [0, 1, 3, 4, 5], [0, 1, 2, 4, 5], [0, 1, 2, 3, 5], [0, 1, 2, 3, 4]])

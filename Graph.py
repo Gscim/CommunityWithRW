@@ -15,10 +15,13 @@ class Graph(object):
         self.graph_file_path = graph_file_path
 
         dr = DataReader(graph_file_path)
+        gr = dr.readGraphFile()
         self.graph = dr.readGraphFile()
-        self.num_nodes = len(self.graph)
+        self.num_nodes = len(gr)
+        self.degree = [len(l) for l in gr]
         self.community_record = None
         self.std_Q = None
+        self.P_Mat = None
 
     def __init__(self):
         self.graph_file_path = None
@@ -26,6 +29,7 @@ class Graph(object):
         self.num_nodes = None
         self.community_record = None
         self.std_Q = None
+        self.P_Mat = None
 
     '''
     To make random graph with communities
@@ -81,6 +85,16 @@ class Graph(object):
 
 
         return community
+
+    def save_graph(self, file_path):
+        pass
+
+    def load_graph(self, file_path):
+        pass
+
+    def init_P(self, P):
+        self.P_Mat = P
+    
 
 
 
