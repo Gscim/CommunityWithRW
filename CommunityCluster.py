@@ -82,6 +82,7 @@ class CommunityCluster(object):
                 continue
             new_deltaC = 
             self.deltaC[C1][i] = self.deltaC[i][C1] = new_deltaC
+            
 
 
         # merge
