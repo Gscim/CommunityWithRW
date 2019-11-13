@@ -2,6 +2,7 @@ from RandomWalks import RandomWalks
 from DataReader import DataReader
 from Graph import Graph
 import os
+import copy
 import numpy as np 
 '''
     Parameters:
@@ -74,12 +75,23 @@ class CommunityCluster(object):
         rC1C2 = math.sqrt(rC1C2)
         return rC1C2
 
-    def merge_comm(self, C1, C2):
-        # merge and change deltaC
-        pass
+    def merge_comm(self, partition, C1, C2):
+        # change deltaC
+        for i, comm in enumerate(partition):
+            if comm == None:
+                continue
+            new_deltaC = 
+            self.deltaC[C1][i] = self.deltaC[i][C1] = new_deltaC
+
+
+        # merge
+        partition[C1].extend(partition[C2])
+        partition[C2] = None
+        
     
     def calculate_deltaC(self, partition, matP, degree, node_num, adj_C):
         deltaC = np.zeros((node_num, node_num), dtype=np.float64)
+        minrec = 1000000.0
         for C1, C in enumerate(partition):
             if C == None:
                 for idx in range(node_num):
@@ -90,12 +102,16 @@ class CommunityCluster(object):
                     if C2 <= C1:
                         continue
                     sC2 = len(partition[C2])
-                    deltaC[C1][C2] = deltaC[C2][C1] = (sC1 * sC2) / (SC1 + SC2) + self.comm_dis(partition[C1], partition[C2], matP, degree, node_num)
+                    deltaC[C1][C2] = deltaC[C2][C1] = (sC1 * sC2) / (SC1 + SC2) * self.comm_dis(partition[C1], partition[C2], matP, degree, node_num) / node_num
+                    if minrec > deltaC[C1][C2]:
+                        minrec = deltaC[C1][C2]
+                        self.mergeA = C1
+                        self.mergeB = C2
         self.deltaC = deltaC
         return deltaC
 
     def record_adj_C(self, partition, graph):
-        pass
+        self.adj_C = copy.deepcopy(graph.graph)
 
 
     # edges include internal edges and bounding edges
@@ -116,6 +132,15 @@ class CommunityCluster(object):
         adj_C = self.record_adj_C(partition, graph)
         self.calculate_deltaC(partition, matP, degree, node_num, adj_C)
         
+    def evalpartition(self, partition):
+        Qp = 0.0
+        for comm in partition:
+            eNc, aNc = self.compute_edges(comm)
+            edge_num = eNc + aNc
+            ec = float(eNc) / edge_num
+            ac = float(aNc) / edge_num
+            Qp += (ec - ac ** 2)
+        return Qp
 
 
 if __name__ == "__main__":
@@ -135,9 +160,19 @@ if __name__ == "__main__":
 
     commCluster.valueInit(graph, commCluster.partition, matP, graph.degree, node_num)
 
+    best_partition = None
+    best_Qp = 0.0
+
+    for _ in range(1, node_num):
+        commCluster.merge_comm(commCluster.partition, commCluster.mergeA, commCluster.mergeB)
+        evalQp = commCluster.evalpartition(commCluster.partition)
+
+        # 找到evalvalue最大的，并记录
+        if evalQp >= best_Qp:
+            best_Qp = evalQp
+            best_partition = copy.deepcopy(commCluster.partition)
     
-
-
-
+    print("best Qp = %.6f" % best_Qp)
+    
     
 
