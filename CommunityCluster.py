@@ -77,13 +77,17 @@ class CommunityCluster(object):
 
     def merge_comm(self, partition, C1, C2):
         # change deltaC
-        for i, comm in enumerate(partition):
+        sC1 = len(partition[C1])
+        sC2 = len(partition[C2])
+
+        for C, comm in enumerate(partition):
             if comm == None:
                 continue
-            new_deltaC = 
-            self.deltaC[C1][i] = self.deltaC[i][C1] = new_deltaC
-            
-
+            sC = len(comm)
+            new_deltaC = (self.deltaC[C1][C] * (sC + sC1) + self.deltaC[C2][C] * (sC + sC2) + \
+                - sC * self.deltaC[C1][C2]) / (sC + sC1 + sC2)
+            self.deltaC[C1][C] = self.deltaC[C][C1] = new_deltaC
+            self.deltaC[C2][C] = self.deltaC[C][C2] = -1.0
 
         # merge
         partition[C1].extend(partition[C2])
